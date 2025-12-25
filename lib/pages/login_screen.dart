@@ -6,10 +6,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 160, 56, 179),
+      backgroundColor: Colors.orange.shade700,
 
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 160, 56, 179),
+        backgroundColor: Colors.orange.shade700,
         iconTheme: IconThemeData(color: Colors.white),
       ),
 
@@ -107,7 +107,7 @@ class LoginScreen extends StatelessWidget {
             width: 450,
             height: 50,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 65, 143, 207),
+              color:Colors.orange.shade300,
               borderRadius: BorderRadius.circular(15),
             ),
 
@@ -119,8 +119,8 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 20),
-          Text("or continue whit ", style: TextStyle(color: Colors.white)),
+          // SizedBox(height: 20),
+          // Text("or continue whit ", style: TextStyle(color: Colors.white)),
         ],
       ),
     );
