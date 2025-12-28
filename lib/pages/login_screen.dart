@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: TextFormField(
-              // style: TextStyle(
-              //   color: Colors.white,
-              // ),
+              controller: emailController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 200, 200, 200),
@@ -57,6 +57,7 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: TextFormField(
+              controller: passwordController,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color.fromARGB(255, 200, 200, 200),
@@ -119,8 +120,6 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-          // SizedBox(height: 20),
-          // Text("or continue whit ", style: TextStyle(color: Colors.white)),
         ],
       ),
     );
