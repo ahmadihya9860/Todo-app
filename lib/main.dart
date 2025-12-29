@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/db/user_db.dart';
 import 'package:project/pages/home_page.dart';
 import 'package:project/pages/login_screen.dart';
 import 'package:project/pages/settings_page.dart';
@@ -11,14 +12,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Hive.initFlutter();
-  await Hive.openBox("userBox");
-  final Box box;
-  runApp(ChangeNotifierProvider(
-    create: (context)=> UserProvider(userBox:box),
-    child: MyApp()
-  ));
-
+  await Hive.initFlutter();
+  UserDb().initBox();
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

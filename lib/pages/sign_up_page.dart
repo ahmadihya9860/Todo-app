@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -34,7 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
       // اللون الرئيسي لخلفية الصفحة
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.orange.shade700, Colors.orange.shade300,],
+          colors: [Colors.orange.shade700, Colors.orange.shade300],
           begin: Alignment.center,
           end: Alignment.bottomCenter,
           transform: GradientRotation(8),
@@ -187,7 +189,23 @@ class _SignUpPageState extends State<SignUpPage> {
                             onPressed: () {
                               // التحقق من صحة جميع الحقول قبل الإرسال
                               if (_formKey.currentState!.validate()) {
-                                // تنفيذ منطق التسجيل هنا
+                                if (_nameController.text.isNotEmpty &&
+                                    _emailController.text.isNotEmpty &&
+                                    _passwordController.text.isNotEmpty) {
+                                  final email = _emailController.text;
+                                  final password = _passwordController.text;
+
+                                  context.read<UserProvider>().addUser(
+                                    email,
+                                    password,
+                                  );
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Registration successful"),
+                                    ),
+                                  );
+                                }
                               }
                             },
                             child: const Text(
@@ -210,7 +228,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             },
                             child: const Text(
                               "Already have an account? Sign In",
-                              style: TextStyle(color: Colors.black54, fontSize: 16),
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),

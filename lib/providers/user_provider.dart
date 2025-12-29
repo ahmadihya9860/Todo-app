@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/db/user_db.dart';
+import 'package:project/models/user.dart';
 
-class UserProvider extends ChangeNotifier {
-  final Box userBox;
-  UserProvider({required this.userBox});
+class UserProvider with ChangeNotifier {
+  UserProvider();
 
-  String? _usernmae;
-  String? _email;
-  bool _isloggedIn = false;
+  static final Box<User> _users = UserDb.userBox!;
 
-  String? get username => _usernmae;
-  String? get email => _email;
-  bool? get isloggesIn => _isloggedIn;
+  static get users => _users;
 
-
-//  log in
-  void logIn({required String name, required String email}) {
-    userBox.put("name", name);
-    userBox.put("email", email);
-
-    _usernmae = name;
-    _email = email;
-    _isloggedIn = true;
-
+  // add new user
+  void addUser(String email, String password) {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      _users.add(User(email: email, password: password));
+    }
     notifyListeners();
   }
 
-
-//  log out 
-  void logout() {
-    userBox.clear();
-
-    _usernmae = null;
-    _email = null;
-    _isloggedIn = false;
+  // delete user
+  void deleteUser() {
+    _users.deleteAt(0);
     notifyListeners();
+  }
+
+  // get user
+  User? getUser() {
+    return _users.get(0);
   }
 }

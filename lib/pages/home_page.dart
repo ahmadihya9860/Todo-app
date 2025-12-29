@@ -5,6 +5,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FlutterLogo(size: 100),
+            SizedBox(height: 16),
+            Text("Welcome Home Page", style: TextStyle(fontSize: 30)),
+          ],
+        ),
+      ),
+    );
   }
 }

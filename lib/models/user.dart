@@ -1,10 +1,14 @@
+import 'package:hive_flutter/hive_flutter.dart';
 
+part 'user.g.dart';
 
-class User {
-  final String email;
-  final String password;
+@HiveType(typeId: 0)
+class User extends HiveObject{
+  @HiveField(0)
+  String email;
 
-  User({required this.email, required this.password});
+  @HiveField(1)
+  String password;
+
+  User({required this.email, required this.password}); 
 }
-
-
