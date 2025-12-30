@@ -1,7 +1,11 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:project/providers/user_provider.dart';
+import 'package:project/widgets/sign_up_form.dart';
+import 'package:project/widgets/social_media_buttons.dart';
 import 'package:provider/provider.dart';
 
+// صفحة تسجيل حساب جديد
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -10,10 +14,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  // المفتاح العالمي للفورم للوصول إلى حالته والتحقق منه
+  // المفتاح العالمي للفورم للتحقق من صحة الحقول
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // المتحكمات لحفظ إدخالات المستخدم في الحقول
+  // المتحكمات لحفظ القيم المدخلة من المستخدم
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -22,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    // التخلص من المتحكمات لتحرير الموارد
+    // تحرير المتحكمات عند التخلص من الصفحة
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -33,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // اللون الرئيسي لخلفية الصفحة
+      // خلفية الصفحة بتدرج لوني
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Colors.orange.shade700, Colors.orange.shade300],
@@ -44,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent, // للسماح برؤية الخلفية
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent, // شفاف لإظهار الخلفية
@@ -62,185 +66,102 @@ class _SignUpPageState extends State<SignUpPage> {
           // يسمح بالتمرير عند ظهور لوحة المفاتيح
           child: Column(
             children: [
-              const SizedBox(height: 20),
-              Image.asset("assets/images/Resume.png", width: 240),
-              const SizedBox(height: 20),
+              const SizedBox(height: 8),
 
+              // حاوية الفورم الرئيسية
               Container(
                 width: 380,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.75), // خلفية شبه شفافة
                   borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 1),
+                      blurRadius: 26,
+                      blurStyle: BlurStyle.inner,
+                      color: Colors.white.withOpacity(0.4), // ظل داخلي
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(22),
-                  child: Form(
-                    key: _formKey, // ربط الفورم بالمفتاح العالمي
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Create Account",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
+                  child: SignUpForm(
+                    formKey: _formKey,
+                    nameController: _nameController,
+                    emailController: _emailController,
+                    passwordController: _passwordController,
+                    confirmPasswordController: _confirmPasswordController,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              // فاصل OR بين الفورم وطرق تسجيل الدخول الاجتماعي
+              Row(
+                children: [
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Divider(color: Colors.white),
+                    ),
+                  ),
+                  Text(
+                    "OR",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Divider(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 8),
+
+              // قسم تسجيل الدخول باستخدام الشبكات الاجتماعية مع تأثير Glassmorphism
+              ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8), // ضبابية الخلفية
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.6), // خلفية شبه شفافة
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // زر تسجيل الدخول عبر Google
+                          socialMediaButtons(
+                            image: Image.asset("assets/images/google.png"),
+                            onTap: () => debugPrint("google"),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        const Text("Full Name"),
-                        const SizedBox(height: 6),
-                        TextFormField(
-                          controller: _nameController,
-                          validator: (value) {
-                            // التحقق من أن الحقل ليس فارغًا
-                            if (value == null || value.isEmpty) {
-                              return "لا يمكن ترك هذا الحقل فارغاً";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            hintText: "Your Name",
-                            border: OutlineInputBorder(),
+                          // زر تسجيل الدخول عبر Facebook
+                          socialMediaButtons(
+                            image: Image.asset("assets/images/facebook.png"),
+                            onTap: () => debugPrint("facebook"),
                           ),
-                        ),
-
-                        const SizedBox(height: 14),
-
-                        const Text("E-Mail"),
-                        const SizedBox(height: 6),
-                        TextFormField(
-                          controller: _emailController,
-                          validator: (value) {
-                            // التحقق من أن البريد ليس فارغاً ويحتوي على @
-                            if (value == null || value.isEmpty) {
-                              return "لا يمكن ترك هذا الحقل فارغاً";
-                            }
-                            if (!value.contains("@")) {
-                              return "يرجى إدخال بريد الكتروني صالح";
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            hintText: "example@email.com",
-                            border: OutlineInputBorder(),
+                          // زر تسجيل الدخول عبر Apple
+                          socialMediaButtons(
+                            image: Image.asset("assets/images/apple.png"),
+                            onTap: () => debugPrint("apple"),
                           ),
-                        ),
-
-                        const SizedBox(height: 14),
-
-                        const Text("Password"),
-                        const SizedBox(height: 6),
-                        TextFormField(
-                          controller: _passwordController,
-                          validator: (value) {
-                            // التحقق من أن كلمة المرور ليست فارغة وطولها مناسب
-                            if (value == null || value.isEmpty) {
-                              return "لا يمكن ترك هذا الحقل فارغاً";
-                            }
-                            if (value.length < 6) {
-                              return "يجب أن تكون كلمة المرور أطول من 6";
-                            }
-                            return null;
-                          },
-                          obscureText: true, // إخفاء كلمة المرور
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.visibility_off),
-                          ),
-                        ),
-
-                        const SizedBox(height: 14),
-
-                        const Text("Confirm Password"),
-                        const SizedBox(height: 6),
-                        TextFormField(
-                          controller: _confirmPasswordController,
-                          validator: (value) {
-                            // التحقق من أن تأكيد كلمة المرور يطابق كلمة المرور
-                            if (value == null || value.isEmpty) {
-                              return "لا يمكن ترك هذا الحقل فارغاً";
-                            }
-                            if (value != _passwordController.text) {
-                              return "يجب أن تتطابق كلمة المرور";
-                            }
-                            return null;
-                          },
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                          ),
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        SizedBox(
-                          width: double.infinity,
-                          height: 48,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange.shade600,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            onPressed: () {
-                              // التحقق من صحة جميع الحقول قبل الإرسال
-                              if (_formKey.currentState!.validate()) {
-                                if (_nameController.text.isNotEmpty &&
-                                    _emailController.text.isNotEmpty &&
-                                    _passwordController.text.isNotEmpty) {
-                                  final email = _emailController.text;
-                                  final password = _passwordController.text;
-
-                                  context.read<UserProvider>().addUser(
-                                    email,
-                                    password,
-                                  );
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Registration successful"),
-                                    ),
-                                  );
-                                }
-                              }
-                            },
-                            child: const Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        Center(
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, "/login_page");
-                            },
-                            child: const Text(
-                              "Already have an account? Sign In",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
             ],
           ),
         ),

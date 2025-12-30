@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -22,21 +24,23 @@ class WelcomePage extends StatelessWidget {
         body: Column(
           children: [
             // صورة الترحيب في الأعلى
-            Image.asset("assets/images/welcome_page_image.png", width: 380),
+            Image.asset("assets/images/welcome_page_image.png", width: 380, cacheWidth: 380,),
             SizedBox(height: 40),
+
             Center(
               child: Container(
                 width: 385,
+                height: 300,
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: Colors.white, // خلفية البطاقة
+                  color: Colors.white.withValues(alpha: .6), // خلفية البطاقة
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(0, 8),
-                      blurRadius: 20,
-                      spreadRadius: -4,
-                      color: Colors.black.withValues(alpha: .25), // تأثير الظل
+                      blurRadius: 26,
+                      spreadRadius: 4,
+                      color: Colors.white.withValues(alpha: .4), // تأثير الظل
                     ),
                   ],
                 ),
