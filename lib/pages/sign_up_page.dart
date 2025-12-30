@@ -1,9 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:project/providers/user_provider.dart';
 import 'package:project/widgets/sign_up_form.dart';
 import 'package:project/widgets/social_media_buttons.dart';
-import 'package:provider/provider.dart';
 
 // صفحة تسجيل حساب جديد
 class SignUpPage extends StatefulWidget {
@@ -73,14 +71,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 width: 380,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.75), // خلفية شبه شفافة
+                  color: Colors.white.withValues(alpha: .75), // خلفية شبه شفافة
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(0, 1),
                       blurRadius: 26,
                       blurStyle: BlurStyle.inner,
-                      color: Colors.white.withOpacity(0.4), // ظل داخلي
+                      color: Colors.white.withValues(alpha: .4), // ظل داخلي
                     ),
                   ],
                 ),
@@ -135,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: Container(
                       height: 80,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6), // خلفية شبه شفافة
+                        color: Colors.white.withValues(alpha: .6), // خلفية شبه شفافة
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(

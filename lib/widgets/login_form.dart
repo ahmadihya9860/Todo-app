@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project/pages/forgot_password_page.dart';
-import 'package:project/widgets/forgot_password_form.dart';
 import 'package:project/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 

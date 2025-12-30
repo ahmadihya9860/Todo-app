@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                color: Colors.white.withOpacity(0.2), // خلفية شبه شفافة
+                color: Colors.white.withValues(alpha: .2), // خلفية شبه شفافة
                 height: 150,
                 width: double.infinity,
                 child: Stack(
@@ -62,11 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         enabled: true,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withValues(alpha: .2),
                             borderRadius: BorderRadius.circular(16),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.white.withOpacity(0.3),
+                                color: Colors.white.withValues(alpha: .3),
                                 offset: Offset(0, 1),
                                 blurStyle: BlurStyle.inner,
                               ),
@@ -111,14 +111,14 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 380,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.75), // خلفية شبه شفافة
+                color: Colors.white.withValues(alpha: .75), // خلفية شبه شفافة
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 1),
                     blurRadius: 26,
                     blurStyle: BlurStyle.inner,
-                    color: Colors.white.withOpacity(0.4), // تأثير الظل الداخلي
+                    color: Colors.white.withValues(alpha: .4), // تأثير الظل الداخلي
                   ),
                 ],
               ),
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 80,
                     width: 400,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.6), // خلفية شبه شفافة
+                      color: Colors.white.withValues(alpha: .6), // خلفية شبه شفافة
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(

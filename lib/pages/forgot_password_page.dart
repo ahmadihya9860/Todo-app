@@ -59,7 +59,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16), // تأثير الضبابية
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2), // خلفية شبه شفافة
+                          color: Colors.white.withValues(alpha: .2), // خلفية شبه شفافة
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(
@@ -99,13 +99,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 width: MediaQuery.of(context).size.width * 0.9, // عرض responsive
                 padding: const EdgeInsets.all(22.0), // مسافة داخلية
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.75), // خلفية شبه شفافة للفورم
+                  color: Colors.white.withValues(alpha: .75), // خلفية شبه شفافة للفورم
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: [
                     BoxShadow(
                       offset: const Offset(0, 4),
                       blurRadius: 20,
-                      color: Colors.white.withOpacity(0.4), // تأثير الظل الداخلي
+                      color: Colors.white.withValues(alpha: .4), // تأثير الظل الداخلي
                       blurStyle: BlurStyle.inner,
                     ),
                   ],
